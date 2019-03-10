@@ -1,5 +1,9 @@
 # Users manager
 
+[![Python Version](https://img.shields.io/badge/python-3.7-brightgreen.svg)](https://python.org)
+[![Django Version](https://img.shields.io/badge/django-2.1-brightgreen.svg)](https://djangoproject.com)
+[![Mongo Version](https://img.shields.io/badge/mongodb-4.0.3-brightgreen.svg)](https://www.mongodb.com)
+
 ### Users manager is a django project with mongodb as database
     Users manages allows you to add, view and delete users.
 
