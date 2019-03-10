@@ -1,5 +1,8 @@
 # Users manager
 
+### Users manager is a django project with mongodb as database
+    Users manages allows you to add, view and delete users.
+
 ## Running the Project Locally
 
 First, clone the repository to your local machine:
