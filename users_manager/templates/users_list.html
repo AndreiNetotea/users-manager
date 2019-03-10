@@ -1,0 +1,49 @@
+{% extends 'base.html' %}
+
+{% block content %}
+
+  {% block content_header %}
+    <h2>Users</h2>
+    <p>
+      <a href="{% url 'upload_cv' %}" class="btn btn-primary">Add user</a>
+    </p>
+  {% endblock %}
+
+  <table class="table mb-0">
+    <thead>
+      <tr>
+        <th>Photo</th>
+        <th>Name</th>
+        <th>Email</th>
+        <th>Download cv</th>
+        <th>Delete</th>
+      </tr>
+    </thead>
+    <tbody>
+      {% for user in users %}
+        <tr>
+          <td>
+            {% if user.image %}
+              <img src="{{ user.image.url }}" alt="{{ user.name }}" style="width:100px;">
+            {% else %}
+              <span class="text-muted">No cover</span>
+            {% endif %}
+          </td>
+          <td>{{ user.name }}</td>
+          <td>{{ user.email }}</td>
+          <td>
+            <a href="{{ user.cv.url }}" class="btn btn-primary btn-sm" target="_blank">
+              Download cv
+            </a>
+          </td>
+          <td>
+            <form method="post" action="{% url 'delete_user' user.pk %}">
+              {% csrf_token %}
+              <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+            </form>
+          </td>
+        </tr>
+      {% endfor %}
+    </tbody>
+  </table>
+{% endblock %}
