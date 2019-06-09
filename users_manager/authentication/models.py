@@ -7,7 +7,6 @@ class UserProfile(models.Model):
         User, on_delete=models.CASCADE, related_name='profile')
 
     full_name = models.CharField(max_length=100, blank=True, null=True)
-    email = models.CharField(max_length=100, blank=True, null=True)
     phone_number = models.CharField(max_length=100, blank=True, null=True)
     address = models.CharField(max_length=100, blank=True, null=True)
 
