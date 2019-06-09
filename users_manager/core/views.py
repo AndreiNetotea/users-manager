@@ -2,14 +2,13 @@ from django.shortcuts import render, redirect
 from django.views.generic import TemplateView, ListView, CreateView
 from django.core.files.storage import FileSystemStorage
 from django.urls import reverse_lazy
-
+from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from .forms import UserForm
 # Create your views here.
 
 class Home(TemplateView):
     template_name = 'home.html'
-
 
 def add_user(request):
     context = {}
@@ -27,7 +26,6 @@ def users_list(request):
         'users': users
     })
 
-
 def upload_cv(request):
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES)
@@ -39,7 +37,6 @@ def upload_cv(request):
     return render(request, 'ad_cv.html', {
         'form': form
     })
-
 
 def delete_user(request, pk):
     if request.method == 'POST':

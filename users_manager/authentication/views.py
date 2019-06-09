@@ -2,15 +2,10 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import authenticate, login, logout
 from django.http import HttpResponseRedirect, HttpResponse
 from users_manager.core import views as user_views
-from django.contrib.auth import (
-    authenticate,
-    get_user_model,
-    login,
-    logout
-)
 from django.contrib.auth.models import User, Group
 from .models import UserProfile
 from .forms import UserLoginForm, UserRegisterForm
+from django.contrib.auth.decorators import login_required
 
 # Create your views here.
 def login_view(request):
@@ -109,12 +104,12 @@ def register_view(request):
             profile.save()
             login(request, user, backend='user_managers.backends.EmailAuthenticationBackend')
 
-            return HttpResponseRedirect('/users')
+            return HttpResponseRedirect('/users/')
 
     else:
         return render(request, "register.html", {'next': next})
 
-
+@login_required()
 def logout_view(request):
     logout(request)
-    return redirect('/')
+    return redirect('/login')
