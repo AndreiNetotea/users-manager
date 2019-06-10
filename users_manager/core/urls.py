@@ -2,7 +2,7 @@ from django.urls import path
 from users_manager.core import views
 
 urlpatterns = [
-    path('', views.Home.as_view(), name='home'),
+    path('', views.index, name='home'),
     path('add-user/', views.add_user, name='upload_cv'),
     path('users/', views.users_list, name='users_list'),
     path('users/upload/', views.upload_cv, name='add_user'),

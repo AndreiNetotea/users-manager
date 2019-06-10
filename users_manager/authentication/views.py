@@ -17,11 +17,12 @@ def login_view(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
+        print(user)
         if user:
-            login(request,
+            a = login(request,
                   user,
-                  backend='user_managers.backends.EmailAuthenticationBackend')
-
+                  backend='users_manager.backends.EmailAuthenticationBackend')
+            print(a)
             if next == '':
                 return HttpResponseRedirect('/users')
             else:
@@ -112,4 +113,4 @@ def register_view(request):
 @login_required()
 def logout_view(request):
     logout(request)
-    return redirect('/login')
+    return HttpResponseRedirect('/')

@@ -10,6 +10,11 @@ from .forms import UserForm
 class Home(TemplateView):
     template_name = 'home.html'
 
+@login_required()
+def index(request):
+    return render(request, 'home.html')
+
+@login_required()
 def add_user(request):
     context = {}
     if request.method == 'POST':
@@ -19,13 +24,14 @@ def add_user(request):
         context['url'] = fs.url(name)
     return render(request, 'ad_user.html', context)
 
-
+@login_required()
 def users_list(request):
     users = UserProfile.objects.all()
     return render(request, 'users_list.html', {
         'users': users
     })
 
+@login_required()
 def upload_cv(request):
     if request.method == 'POST':
         form = UserForm(request.POST, request.FILES)
@@ -38,6 +44,7 @@ def upload_cv(request):
         'form': form
     })
 
+@login_required()
 def delete_user(request, pk):
     if request.method == 'POST':
         user = UserProfile.objects.get(pk=pk)
