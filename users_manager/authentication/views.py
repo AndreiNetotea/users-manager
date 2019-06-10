@@ -4,7 +4,6 @@ from django.http import HttpResponseRedirect, HttpResponse
 from users_manager.core import views as user_views
 from django.contrib.auth.models import User, Group
 from .models import UserProfile
-from .forms import UserLoginForm, UserRegisterForm
 from django.contrib.auth.decorators import login_required
 
 # Create your views here.

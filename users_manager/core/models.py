@@ -6,6 +6,10 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     name = models.CharField(max_length=100)
     email = models.CharField(max_length=100, blank=True)
+    job = models.CharField(max_length=100, blank=True)
+    country = models.CharField(max_length=100, blank=True)
+    phone_number = models.CharField(max_length=100, blank=True)
+    city = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
     cv = models.FileField(upload_to='users/cvs/', blank=True)
     image = models.ImageField(upload_to='users/photos/', blank=True)

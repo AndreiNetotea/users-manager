@@ -1,0 +1,34 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <div class="row np">
+    <div class="modal-body">
+        <img src="{{ user.image.url }}" alt="{{ user.name }}" width="200px" height="150px">
+        <h2 class="media-heading">{{ user.name }} <small>{{user.country}}</small></h2>
+        <hr>
+
+        <h4><strong>Job: </strong> {{user.job}}</h4>
+        <h4><strong>Telefon: </strong> {{user.phone_number}}</h4>
+        <h4><strong>Oras: </strong> {{user.city}}</h4>
+        <h4><strong>Descriere: </strong> </h4>
+        <p class="text-left">
+            {{user.description}}</p>
+        <br>
+        <hr>
+        <div class="row">
+            <div class="col-md-6">
+                <form method="post" action="{% url 'delete_user' user.pk %}">
+                    {% csrf_token %}
+                    <button type="submit" class="btn btn-danger btn-sm">Delete</button>
+                </form>
+            </div>
+            <div class="col-md-6">
+                <a href="{{ user.cv.url }}" class="btn btn-primary btn-sm" target="_blank">
+                    Download cv
+                </a>
+            </div>
+        </div>
+    </div>
+
+</div>
+{% endblock %}

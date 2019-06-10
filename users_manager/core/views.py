@@ -5,6 +5,7 @@ from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
 from .models import UserProfile
 from .forms import UserForm
+from django.http import HttpResponseRedirect
 # Create your views here.
 
 class Home(TemplateView):
@@ -50,6 +51,16 @@ def delete_user(request, pk):
         user = UserProfile.objects.get(pk=pk)
         user.delete()
     return redirect('users_list')
+
+
+def user_details(request, id):
+    context = {}
+    try:
+        context['user'] = UserProfile.objects.get(id=id)
+    except:
+        return HttpResponseRedirect('/users')
+    print(context)
+    return render(request, 'user_details.html', context)
 
 
 class UserListView(ListView):

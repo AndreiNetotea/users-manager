@@ -24,12 +24,18 @@
         <tr>
           <td>
             {% if user.image %}
-              <img src="{{ user.image.url }}" alt="{{ user.name }}" style="width:100px;">
+              <a href="../user-details/{{user.id}}">
+                <img src="{{ user.image.url }}" alt="{{ user.name }}" style="width:100px;">
+              </a>
             {% else %}
               <span class="text-muted">No cover</span>
             {% endif %}
           </td>
-          <td>{{ user.name }}</td>
+          <td>
+            	<a href="../user-details/{{user.id}}">
+					{{ user.name }}
+            	</a>
+          </td>
           <td>{{ user.email }}</td>
           <td>
             <a href="{{ user.cv.url }}" class="btn btn-primary btn-sm" target="_blank">

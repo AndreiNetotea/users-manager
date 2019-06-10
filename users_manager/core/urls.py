@@ -9,4 +9,5 @@ urlpatterns = [
     path('users/<int:pk>/', views.delete_user, name='delete_user'),
     path('class/users/', views.UserListView.as_view(), name='class_users_list'),
     path('class/users/upload/', views.UploadCvView.as_view(), name='ad_cv'),
+    path('user-details/<int:id>', views.user_details, name='user_details')
 ]
