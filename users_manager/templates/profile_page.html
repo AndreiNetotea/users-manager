@@ -1,0 +1,82 @@
+{% extends 'base.html' %}
+{% load static %}
+{% block content %}
+<div class="row">
+    <div class="col-md-10 offset-md-2">
+
+        <div>
+            <form class="form row" method="POST" action="{% url 'profile-page' %}" enctype="multipart/form-data" role="form">
+                {% csrf_token %}
+                {{ csrf_input }}
+                <div class="col-md-10 col-padding">
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>User name</label>
+                                <input type="text" class="form-control bs-input" value="{{ user.name }}" placeholder="First name" name="name">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Adress</label>
+                                <input type="text" class="form-control bs-input" value="{% if user.profile.id %}{{ user.profile.address }}{% endif %}" placeholder="Address" name="address">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Email</label>
+                                <input type="text" class="form-control bs-input" value="{{ user.email }}" placeholder="Email" name="email"> {% if errors.duplicate_email %}
+                                <div class="alert alert-danger">
+                                    {{ errors.duplicate_email }}
+                                </div>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Phone number</label>
+                                <input type="number" class="form-control bs-input" value="{% if user.profile.phone_number %}{{ user.profile.phone_number }}{% endif %}" placeholder="Phone number" name="phone_number">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Password</label>
+                                <input type="password" class="form-control bs-input" name="password" placeholder="New password">
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group">
+                                <label>Confirm password</label>
+                                <input type="password" class="form-control bs-input" name="confirm_password" placeholder="Confirm password">
+                            </div>
+                            {% if errors.invalid_password %}
+                            <div class="alert alert-danger">
+                                {{ errors.invalid_password }}
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-12">
+                            <div class="form-group" style="margin-top: 34px;">
+                                <label></label>
+                                <button class="btn btn-primary btn-sm" type="submit">Save settings</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
+{% endblock %}

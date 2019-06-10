@@ -101,6 +101,7 @@ def register_view(request):
                 return render(request, "register.html", context)
 
             profile.user = user
+            user.save()
             profile.save()
             login(request, user, backend='user_managers.backends.EmailAuthenticationBackend')
 
