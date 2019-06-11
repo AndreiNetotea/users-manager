@@ -3,7 +3,7 @@ from django.views.generic import TemplateView, ListView, CreateView
 from django.core.files.storage import FileSystemStorage
 from django.urls import reverse_lazy
 from django.contrib.auth.decorators import login_required
-from .models import UserProfile
+from .models import UserProfile, Appointment, Job
 from .forms import UserForm
 from django.contrib.auth.models import User
 from django.http import HttpResponseRedirect
@@ -130,6 +130,139 @@ def profile_page(request, context={}):
 
     else:
         return render(request, 'profile_page.html', context)
+
+
+
+@login_required()
+def jobs(request):
+    jobs = Job.objects.filter(user=request.user)
+    return render(request, 'jobs.html', {
+        'jobs': jobs
+    })
+
+
+@login_required
+def add_job(request):
+    errors = {}
+
+    if request.method == 'POST':
+        name = request.POST.get('name')
+        description = request.POST.get('description')
+        salary = request.POST.get('salary')
+        location = request.POST.get('location')
+
+        job = Job()
+
+        if not name:
+            errors['name'] = 'Numele este obligatoriu'
+
+        if not description:
+            errors['description'] = 'Descrierea este obligatorie'
+
+        if not salary:
+            errors['salary'] = 'Salariul este obligatoriu'
+
+        if len(errors):
+            return render(request, 'add-job.html', {
+                'errors': errors,
+                'name': name,
+                'description': description,
+                'salary': salary,
+                'location': location
+            })
+        else:
+            try:
+                job.user = request.user
+                job.name = name
+                job.description = description
+                job.salary = salary
+                job.location = location
+                job.save()
+
+            except Exception as e:
+                raise e
+                return render(request, 'add-job.html', {
+                    'errors': errors,
+                    'name': name,
+                    'description': description,
+                    'salary': salary,
+                    'location': location
+                })
+
+            return HttpResponseRedirect('/jobs')
+
+    else:
+        return render(request, 'add-job.html')
+
+
+@login_required()
+def appointments(request):
+    appointments = Appointment.objects.filter(user=request.user)
+    return render(request, 'appointments.html', {
+        'appointments': appointments
+    })
+
+
+@login_required
+def add_appointment(request):
+    errors = {}
+    profiles = UserProfile.objects.filter(user=request.user)
+    jobs = Job.objects.filter(user=request.user)
+
+    if request.method == 'POST':
+        profile = request.POST.get('profile')
+        job = request.POST.get('job')
+        date = request.POST.get('date')
+        notes = request.POST.get('notes')
+        appointment = Appointment()
+
+        if not profile:
+            errors['profile'] = 'Profilul este obligatoriu'
+
+        if not job:
+            errors['job'] = 'Jobul este obligatoriu'
+
+        if not date:
+            errors['date'] = 'Data este obligatorie'
+
+        if len(errors):
+            return render(request, 'add-appointment.html', {
+                'errors': errors,
+                'profile': profile,
+                'job': job,
+                'date': date,
+                'notes': notes,
+                'jobs': jobs,
+                'profiles': profiles
+            })
+        else:
+            try:
+                appointment.user = request.user
+                appointment.profile = UserProfile.objects.get(id=profile)
+                appointment.job = Job.objects.get(id=job)
+                appointment.date = date
+                appointment.notes = notes
+                appointment.save()
+
+            except Exception as e:
+                raise e
+                return render(request, 'add-appointment.html', {
+                    'errors': errors,
+                    'profile': profile,
+                    'job': job,
+                    'date': date,
+                    'notes': notes,
+                    'jobs': jobs,
+                    'profiles': profiles
+                })
+
+            return HttpResponseRedirect('/appointments')
+
+    else:
+        return render(request, 'add-appointment.html', {
+            'jobs': jobs,
+            'profiles': profiles
+        })
 
 
 class UserListView(ListView):

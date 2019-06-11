@@ -1,0 +1,54 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Adaugare job</h2>
+
+<form method="POST" action="/add-service" class="user">
+    {% csrf_token %}
+    <div class="form-group row">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+            <input type="text" class="form-control form-control-user" placeholder="Nume" name="name" value="{{name}}">
+            {% if errors.name %}
+            <div class="alert alert-danger">
+                {{ errors.name }}
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-sm-6">
+            <input type="number" class="form-control form-control-user" placeholder="Salariu" name="salary" value="{{salary}}">
+            {% if errors.salary %}
+            <div class="alert alert-danger">
+                {{ errors.salary }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="descriptionText">Descriere</label>
+        <textarea class="form-control rounded-0" id="descriptionText" rows="3" name="description">{{description}}</textarea>
+        {% if errors.description %}
+        <div class="alert alert-danger">
+            {{ errors.description }}
+        </div>
+        {% endif %}
+    </div>
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <input type="text" class="form-control form-control-user" placeholder="Locatie" name="location" value="{{location}}">
+            {% if errors.location %}
+            <div class="alert alert-danger">
+                {{ errors.location }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    {% if errors.invalid_password %}
+    <div class="alert alert-danger">
+        {{ errors.invalid_password }}
+    </div>
+    {% endif %}
+    <button type="submit" class="btn btn-primary btn-user btn-block">Adaugare</button>
+</form>
+
+
+{% endblock %}

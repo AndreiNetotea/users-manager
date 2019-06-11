@@ -19,3 +19,20 @@ class UserProfile(models.Model):
 
     def __str__(self):
         return self.name
+
+
+class Job(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    name = models.CharField(max_length=100)
+    description = models.TextField()
+    salary = models.FloatField()
+    location = models.CharField(max_length=250, blank=True, null=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+class Appointment(models.Model):
+    user = models.ForeignKey(User, on_delete=models.CASCADE)
+    profile = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    job = models.ForeignKey(Job, on_delete=models.CASCADE)
+    date = models.DateField()
+    notes = models.TextField()
+    created_at = models.DateTimeField(auto_now_add=True)
