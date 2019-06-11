@@ -8,7 +8,6 @@
         <div class="col-sm-6">
             <label for="profileSelect">Selecteaza profil</label>
             <select class="form-control selectApp" id="profileSelect" name="profile">
-                {{profiles}}
                 {% for profile in profiles %}
                 <option value="{{profile.id}}">{{profile.name}} - {{profile.email}}</option>
                 {% endfor %}
@@ -20,7 +19,6 @@
             {% endif %}
         </div>
         <div class="col-sm-6">
-            {{jobs}}
             <label for="serviceSelect">Selecteaza job</label>
             <select class="form-control selectApp" id="serviceSelect" name="job">
                 {% for job in jobs %}
@@ -61,3 +59,18 @@
 </form>
 
 {% endblock %}
+
+{% block extra_js %}
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.7/js/select2.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gijgo/1.9.13/combined/js/gijgo.min.js"></script>
+    <script>
+        $("#exampleFormControlSelect1").select2({
+            // width: '100%', // need to override the changed default,
+            // theme: 'classic'
+        });
+        $('#datepicker').datepicker({
+            uiLibrary: 'bootstrap4',
+            format: 'yyyy-mm-dd'
+        });
+    </script>
+{% endblock extra_js %}

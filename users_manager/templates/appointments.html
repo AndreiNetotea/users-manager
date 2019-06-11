@@ -33,14 +33,14 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                {% for job in jobs %}
+                                {% for appointment in appointments %}
                                 <tr>
                                     <td>{{ forloop.counter }}</td>
-                                    <td>{{ job.client.full_name }}</td>
-                                    <td>{{ job.service.name }}</td>
-                                    <td>{{ job.date }}</td>
-                                    <td>{{ job.notes }}</td>
-                                    <td>{{ job.created_at }}</td>
+                                    <td>{{ appointment.profile.name }}</td>
+                                    <td>{{ appointment.job.name }}</td>
+                                    <td>{{ appointment.date }}</td>
+                                    <td>{{ appointment.notes }}</td>
+                                    <td>{{ appointment.created_at }}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
