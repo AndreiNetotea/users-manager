@@ -8,8 +8,9 @@
         <div class="col-sm-6">
             <label for="profileSelect">Selecteaza profil</label>
             <select class="form-control selectApp" id="profileSelect" name="profile">
+                {{profiles}}
                 {% for profile in profiles %}
-                <option value="{{profile.id}}">{{profile.full_name}} - {{profile.email}}</option>
+                <option value="{{profile.id}}">{{profile.name}} - {{profile.email}}</option>
                 {% endfor %}
             </select>
             {% if errors.profile %}
@@ -19,6 +20,7 @@
             {% endif %}
         </div>
         <div class="col-sm-6">
+            {{jobs}}
             <label for="serviceSelect">Selecteaza job</label>
             <select class="form-control selectApp" id="serviceSelect" name="job">
                 {% for job in jobs %}

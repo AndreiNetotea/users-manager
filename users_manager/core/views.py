@@ -24,6 +24,7 @@ def add_user(request):
         fs = FileSystemStorage()
         name = fs.save(uploaded_file.name, uploaded_file)
         context['url'] = fs.url(name)
+        context.user = request.user
     return render(request, 'ad_user.html', context)
 
 @login_required()
@@ -206,9 +207,8 @@ def appointments(request):
 @login_required
 def add_appointment(request):
     errors = {}
-    profiles = UserProfile.objects.filter(user=request.user)
+    profiles = UserProfile.objects.filter()
     jobs = Job.objects.filter(user=request.user)
-
     if request.method == 'POST':
         profile = request.POST.get('profile')
         job = request.POST.get('job')

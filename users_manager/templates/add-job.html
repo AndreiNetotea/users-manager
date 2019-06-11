@@ -3,10 +3,11 @@
 {% block content %}
 <h2>Adaugare job</h2>
 
-<form method="POST" action="/add-service" class="user">
+<form method="POST" action="/add-job" class="user">
     {% csrf_token %}
     <div class="form-group row">
         <div class="col-sm-6 mb-3 mb-sm-0">
+            <label for="descriptionText">Nume</label>
             <input type="text" class="form-control form-control-user" placeholder="Nume" name="name" value="{{name}}">
             {% if errors.name %}
             <div class="alert alert-danger">
@@ -15,6 +16,7 @@
             {% endif %}
         </div>
         <div class="col-sm-6">
+            <label for="descriptionText">Salariu</label>
             <input type="number" class="form-control form-control-user" placeholder="Salariu" name="salary" value="{{salary}}">
             {% if errors.salary %}
             <div class="alert alert-danger">
@@ -34,6 +36,7 @@
     </div>
     <div class="form-group row">
         <div class="col-sm-6">
+            <label for="descriptionText">Locatie</label>
             <input type="text" class="form-control form-control-user" placeholder="Locatie" name="location" value="{{location}}">
             {% if errors.location %}
             <div class="alert alert-danger">
