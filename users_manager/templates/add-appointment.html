@@ -1,0 +1,61 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<h2>Adaugare job</h2>
+<form method="POST" action="/add-appointment" class="user">
+    {% csrf_token %}
+    <div class="form-group row">
+        <div class="col-sm-6">
+            <label for="profileSelect">Selecteaza profil</label>
+            <select class="form-control selectApp" id="profileSelect" name="profile">
+                {% for profile in profiles %}
+                <option value="{{profile.id}}">{{profile.full_name}} - {{profile.email}}</option>
+                {% endfor %}
+            </select>
+            {% if errors.profile %}
+            <div class="alert alert-danger">
+                {{ errors.profile }}
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-sm-6">
+            <label for="serviceSelect">Selecteaza job</label>
+            <select class="form-control selectApp" id="serviceSelect" name="job">
+                {% for job in jobs %}
+                <option value="{{job.id}}">{{job.name}} - {{job.price}} lei</option>
+                {% endfor %}
+            </select>
+            {% if errors.job %}
+            <div class="alert alert-danger">
+                {{ errors.job }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group">
+        <label for="descriptionText">Notite</label>
+        <textarea class="form-control rounded-0" id="descriptionText" rows="3" name="notes">{{notes}}</textarea>
+        {% if errors.notes %}
+        <div class="alert alert-danger">
+            {{ errors.notes }}
+        </div>
+        {% endif %}
+    </div>
+    <div class="form-group">
+        <label>Data</label>
+        <input class="form-control form-control-user" id="datepicker" name="date">
+        {% if errors.date %}
+        <div class="alert alert-danger">
+            {{ errors.date }}
+        </div>
+        {% endif %}
+    </div>
+    {% if errors.invalid_password %}
+    <div class="alert alert-danger">
+        {{ errors.invalid_password }}
+    </div>
+    {% endif %}
+    <button type="submit" class="btn btn-primary btn-user btn-block">Adaugare</button>
+</form>
+
+{% endblock %}

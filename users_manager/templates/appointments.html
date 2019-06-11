@@ -11,34 +11,36 @@
         <div class="container-fluid">
 
             <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                <h1 class="h3 mb-0 text-gray-800">Job-uri</h1>
-                <a href="/add-service" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Adaugare serviciu</a>
+                <h1 class="h3 mb-0 text-gray-800">Programari</h1>
+                <a href="/add-appointment" class="d-none d-sm-inline-block btn btn-sm btn-primary shadow-sm"><i class="fas fa-plus fa-sm text-white-50"></i> Adaugare programare</a>
             </div>
             <!-- DataTales Example -->
             <div class="card shadow mb-4">
                 <div class="card-header py-3">
-                    <h6 class="m-0 font-weight-bold text-primary">Job-urile mele</h6>
+                    <h6 class="m-0 font-weight-bold text-primary">Programarile mele</h6>
                 </div>
                 <div class="card-body">
                     <div class="table-responsive">
                         <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                             <thead>
                                 <tr>
-                                    <th>Nume</th>
-                                    <th>Descriere</th>
-                                    <th>Salariu</th>
-                                    <th>Location</th>
+                                    <th>ID</th>
+                                    <th>Profil</th>
+                                    <th>Job</th>
+                                    <th>Data</th>
+                                    <th>Notite</th>
                                     <th>Creat la</th>
                                 </tr>
                             </thead>
                             <tbody>
                                 {% for job in jobs %}
                                 <tr>
-                                    <td>{{job.name}}</td>
-                                    <td>{{job.description}}</td>
-                                    <td>{{job.salary}}</td>
-                                    <td>{{job.location}}</td>
-                                    <td>{{job.created_at}}</td>
+                                    <td>{{ forloop.counter }}</td>
+                                    <td>{{ job.client.full_name }}</td>
+                                    <td>{{ job.service.name }}</td>
+                                    <td>{{ job.date }}</td>
+                                    <td>{{ job.notes }}</td>
+                                    <td>{{ job.created_at }}</td>
                                 </tr>
                                 {% endfor %}
                             </tbody>
@@ -52,6 +54,7 @@
 
     </div>
     <!-- End of Main Content -->
+
 
 </div>
 
