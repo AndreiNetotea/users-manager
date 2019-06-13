@@ -10,11 +10,11 @@ from django.http import HttpResponseRedirect
 # Create your views here.
 
 class Home(TemplateView):
-    template_name = 'home.html'
+    template_name = 'users_list.html'
 
 @login_required()
 def index(request):
-    return render(request, 'home.html')
+    return render(request, 'users_list.html')
 
 @login_required()
 def add_user(request):
@@ -27,9 +27,10 @@ def add_user(request):
         context.user = request.user
     return render(request, 'ad_user.html', context)
 
+
 @login_required()
 def users_list(request):
-    users = UserProfile.objects.all()
+    users = UserProfile.objects.filter()
     return render(request, 'users_list.html', {
         'users': users
     })
@@ -37,7 +38,7 @@ def users_list(request):
 @login_required()
 def upload_cv(request):
     if request.method == 'POST':
-        form = UserForm(request.POST, request.FILES)
+        form = UserForm(request.POST, request.FILES, request.user)
         if form.is_valid():
             form.save()
             return redirect('users_list')
@@ -273,6 +274,7 @@ class UserListView(ListView):
 
 class UploadCvView(CreateView):
     model = UserProfile
+    model.user = User
     form_class = UserForm
     success_url = reverse_lazy('class_users_list')
     template_name = 'ad_cv.html'

@@ -6,14 +6,14 @@ from django.contrib.auth.models import User
 class UserProfile(models.Model):
     user = models.ForeignKey(User, on_delete=models.CASCADE)
     name = models.CharField(max_length=100)
-    email = models.CharField(max_length=100, blank=True)
+    email = models.CharField(max_length=100)
     job = models.CharField(max_length=100, blank=True)
     country = models.CharField(max_length=100, blank=True)
     phone_number = models.CharField(max_length=100, blank=True)
     city = models.CharField(max_length=100, blank=True)
     description = models.TextField(blank=True)
-    cv = models.FileField(upload_to='users/cvs/', blank=True)
-    image = models.ImageField(upload_to='users/photos/', blank=True)
+    cv = models.FileField(upload_to='users/cvs/')
+    image = models.ImageField(upload_to='users/photos/')
 
     created_at = models.DateTimeField(auto_now_add=True)
     updated_at = models.DateTimeField(auto_now=True)

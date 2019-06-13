@@ -57,7 +57,6 @@ MIDDLEWARE = [
 
 
 AUTHENTICATION_BACKENDS = [
-    'users_manager.backends.EmailAuthenticationBackend',
     'django.contrib.auth.backends.ModelBackend',
 ]
 
@@ -82,6 +81,7 @@ TEMPLATES = [
 ]
 
 WSGI_APPLICATION = 'users_manager.wsgi.application'
+CRISPY_TEMPLATE_PACK = 'bootstrap4'
 
 
 # Database

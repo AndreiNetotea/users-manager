@@ -3,10 +3,89 @@
 {% load crispy_forms_tags %}
 
 {% block content %}
-  <h2>Create new user</h2>
-  <form method="post" enctype="multipart/form-data">
+  <h2>Adaugare angajat</h2>
+  <form method="post" enctype="multipart/form-data" class="user">
     {% csrf_token %}
-    {{ form|crispy }}
-    <button type="submit" class="btn btn-primary">Add user</button>
-  </form>
+    <div class="form-group row">
+        <div class="col-sm-6 mb-3 mb-sm-0">
+			{{ form.name|as_crispy_field }}
+            {% if form.name.errors %}
+            <div class="alert alert-danger">
+                {{ form.name.errors }}
+            </div>
+            {% endif %}
+        </div>
+        <div class="col-sm-6">
+			{{ form.email|as_crispy_field }}
+            {% if form.email.errors %}
+            <div class="alert alert-danger">
+                {{ form.email.errors }}
+            </div>
+            {% endif %}
+        </div>
+    </div>
+    <div class="form-group row">
+		<div class="col-sm-6 mb-3 mb-sm-0">
+			{{ form.job|as_crispy_field }}
+			{% if form.job.errors %}
+			<div class="alert alert-danger">
+				{{ form.job.errors }}
+			</div>
+			{% endif %}
+		</div>
+		<div class="col-sm-6">
+			{{ form.country|as_crispy_field }}
+			{% if form.country.errors %}
+			<div class="alert alert-danger">
+				{{ form.country.errors }}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+    <div class="form-group row">
+		<div class="col-sm-6 mb-3 mb-sm-0">
+			{{ form.city|as_crispy_field }}
+			{% if form.city.errors %}
+			<div class="alert alert-danger">
+				{{ form.city.errors }}
+			</div>
+			{% endif %}
+		</div>
+		<div class="col-sm-6">
+			{{ form.phone_number|as_crispy_field }}
+			{% if form.phone_number.errors %}
+			<div class="alert alert-danger">
+				{{ form.phone_number.errors }}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+	<div class="form-group">
+		{{ form.description|as_crispy_field }}
+		{% if form.description.errors %}
+			<div class="alert alert-danger">
+				{{ form.description.errors }}
+			</div>
+		{% endif %}
+	</div>
+	<div class="form-group row">
+		<div class="col-sm-6 mb-3 mb-sm-0">
+			{{ form.cv|as_crispy_field }}
+			{% if form.cv.errors %}
+			<div class="alert alert-danger">
+				{{ form.cv.errors }}
+			</div>
+			{% endif %}
+		</div>
+		<div class="col-sm-6">
+			{{ form.image|as_crispy_field }}
+			{% if form.image.errors %}
+			<div class="alert alert-danger">
+				{{ form.image.errors }}
+			</div>
+			{% endif %}
+		</div>
+	</div>
+    <button type="submit" class="btn btn-primary btn-user btn-block">Adaugare</button>
+</form>
 {% endblock %}

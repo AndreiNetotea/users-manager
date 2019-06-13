@@ -16,12 +16,9 @@ def login_view(request):
         username = request.POST['username']
         password = request.POST['password']
         user = authenticate(username=username, password=password)
-        print(user)
         if user:
-            a = login(request,
-                  user,
-                  backend='users_manager.backends.EmailAuthenticationBackend')
-            print(a)
+            login(request, user)
+
             if next == '':
                 return HttpResponseRedirect('/users')
             else:
@@ -31,9 +28,9 @@ def login_view(request):
             response['login_error_invalid'] = 'Incorrect username or password'
             response['next'] = next
 
-            return render(request, "login.html", response)
+            return render(request, 'login.html', response)
     else:
-        return render(request, "login.html", {'next': next})
+        return render(request, 'login.html', {'next': next})
 
 def register_view(request):
     errors = {}
@@ -61,7 +58,7 @@ def register_view(request):
 
         if email:
             user.email = email
-            user.username = email
+            user.username = full_name
             duplicate_email = User.objects.filter(email=email, username=email)
             if len(duplicate_email):
                 errors['duplicate_email'] = 'Email is used'
@@ -77,35 +74,44 @@ def register_view(request):
         if password != confirm_password:
             errors['invalid_password'] = 'Password does not match the confirm password'
 
-        user.set_password(password)
-        context = {
-            'errors': errors,
-        }
-
         if address:
             profile.address = address
 
         if phone_number:
             profile.phone_number = phone_number
 
+        user.set_password(password)
+
         if len(errors):
-            return render(request, "register.html", context)
+            return render(request, 'register.html', {
+                'errors': errors,
+                'full_name': full_name,
+                'email': email,
+                'password': password,
+                'confirm_password': confirm_password,
+                'next': next
+            })
         else:
 
             try:
+                user.full_name = full_name
                 user.save()
 
             except Exception as e:
                 errors['duplicate_username'] = 'This username is used'
                 errors['python_error'] = str(e)
-                return render(request, "register.html", context)
+                return render(request, 'register.html', {
+                    'errors': errors,
+                    'full_name': full_name,
+                    'email': email,
+                    'password': password,
+                    'confirm_password': confirm_password,
+                    'next': next
+                })
 
-            profile.user = user
-            user.save()
-            profile.save()
-            login(request, user, backend='user_managers.backends.EmailAuthenticationBackend')
+            login(request, user)
 
-            return HttpResponseRedirect('/users/')
+            return HttpResponseRedirect('/users')
 
     else:
         return render(request, "register.html", {'next': next})
